@@ -10,7 +10,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Global test variables
-export SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 export WORKTREE_MANAGER="$SCRIPT_DIR/git-worktree-manager.sh"
 export WORKTREE_SHORTCUTS="$SCRIPT_DIR/worktree-shortcuts.sh"
 

@@ -161,7 +161,12 @@ validate_git_repo() {
 
 # Get the main/master branch name
 get_main_branch() {
-    git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main"
+    local main_branch
+    main_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
+    if [[ -z "$main_branch" ]]; then
+        main_branch="main"
+    fi
+    echo "$main_branch"
 }
 
 # Load list of config files to copy from .worktree-config or defaults

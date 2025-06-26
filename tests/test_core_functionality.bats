@@ -55,7 +55,7 @@ teardown() {
     
     run_worktree_manager list
     assert_failure
-    assert_output_contains "Cannot find git repository root"
+    assert_output_contains "Not in a git repository"
 }
 
 # Test worktree listing
@@ -85,7 +85,7 @@ teardown() {
     assert_output_contains "Worktree created"
     
     # Verify worktree was created
-    assert worktree_exists "$branch"
+    worktree_exists "$branch"
     
     local worktree_path=$(get_worktree_path "$branch")
     [ -d "$worktree_path" ]
@@ -101,7 +101,7 @@ teardown() {
     assert_output_contains "Worktree created"
     
     # Verify worktree was created
-    assert worktree_exists "$branch"
+    worktree_exists "$branch"
     
     local worktree_path=$(get_worktree_path "$branch")
     [ -d "$worktree_path" ]
@@ -140,7 +140,7 @@ teardown() {
     assert_success
     
     # Should create worktree with sanitized directory name
-    assert worktree_exists "$branch"
+    worktree_exists "$branch"
     local worktree_path=$(get_worktree_path "$branch")
     [ -d "$worktree_path" ]
 }
@@ -180,10 +180,10 @@ teardown() {
     assert_output_contains "Copied"
     
     local worktree_path=$(get_worktree_path "$branch")
-    assert file_exists_in_worktree "$worktree_path" ".env"
-    assert file_exists_in_worktree "$worktree_path" ".mcp.json"
-    assert file_exists_in_worktree "$worktree_path" ".taskmaster/config.json"
-    assert file_exists_in_worktree "$worktree_path" ".vscode/settings.json"
+    file_exists_in_worktree "$worktree_path" ".env"
+    file_exists_in_worktree "$worktree_path" ".mcp.json"
+    file_exists_in_worktree "$worktree_path" ".taskmaster/config.json"
+    file_exists_in_worktree "$worktree_path" ".vscode/settings.json"
 }
 
 @test "skips config copying when disabled" {
@@ -204,8 +204,8 @@ teardown() {
     assert_success
     
     local worktree_path=$(get_worktree_path "$branch")
-    assert file_exists_in_worktree "$worktree_path" ".env"
-    assert file_exists_in_worktree "$worktree_path" ".mcp.json"
+    file_exists_in_worktree "$worktree_path" ".env"
+    file_exists_in_worktree "$worktree_path" ".mcp.json"
     [ ! -f "$worktree_path/.taskmaster/config.json" ]
     [ ! -f "$worktree_path/.vscode/settings.json" ]
 }
@@ -217,7 +217,7 @@ teardown() {
     # Create worktree
     run_worktree_manager create "$branch"
     assert_success
-    assert worktree_exists "$branch"
+    worktree_exists "$branch"
     
     # Remove worktree
     run_worktree_manager remove "$branch"
