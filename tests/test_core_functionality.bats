@@ -220,7 +220,7 @@ teardown() {
     worktree_exists "$branch"
     
     # Remove worktree
-    run_worktree_manager remove "$branch"
+    run_worktree_manager remove "$branch" --force
     assert_success
     assert_output_contains "Worktree removed"
     
@@ -237,7 +237,7 @@ teardown() {
     local worktree_path=$(get_worktree_path "$branch")
     
     # Remove by path
-    run_worktree_manager remove "$worktree_path"
+    run_worktree_manager remove "$worktree_path" --force
     assert_success
     assert_output_contains "Worktree removed"
     

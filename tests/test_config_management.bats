@@ -172,7 +172,7 @@ teardown() {
     assert_success
     
     local worktree_path=$(get_worktree_path "$branch")
-    assert file_exists_in_worktree "$worktree_path" ".persistent-test"
+    file_exists_in_worktree "$worktree_path" ".persistent-test"
 }
 
 @test "config handles comments and empty lines" {
@@ -222,8 +222,8 @@ teardown() {
     
     local worktree_path=$(get_worktree_path "$branch")
     # Should copy files from custom config
-    assert file_exists_in_worktree "$worktree_path" ".env"
-    assert file_exists_in_worktree "$worktree_path" ".custom-only"
+    file_exists_in_worktree "$worktree_path" ".env"
+    file_exists_in_worktree "$worktree_path" ".custom-only"
     
     # Should not copy files not in custom config
     [ ! -f "$worktree_path/.mcp.json" ]
@@ -243,7 +243,7 @@ teardown() {
     
     local worktree_path=$(get_worktree_path "$branch")
     # Should only copy command-line specified files
-    assert file_exists_in_worktree "$worktree_path" ".env"
+    file_exists_in_worktree "$worktree_path" ".env"
     [ ! -f "$worktree_path/.config-file-only" ]
     
     # Note: .override-only doesn't exist in source, so won't be copied
@@ -264,7 +264,7 @@ teardown() {
     assert_success
     
     local worktree_path=$(get_worktree_path "$branch")
-    assert file_exists_in_worktree "$worktree_path" "config/app.json"
+    file_exists_in_worktree "$worktree_path" "config/app.json"
 }
 
 # Test edge cases
