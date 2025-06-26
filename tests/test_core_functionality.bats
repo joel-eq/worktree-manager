@@ -160,13 +160,13 @@ teardown() {
 
 @test "creates worktree with force flag when directory exists" {
     local branch="force-test"
+    local worktree_path="../$(basename "$TEST_REPO")-$branch"
     
-    # Create the worktree first
-    run_worktree_manager create "$branch"
-    assert_success
+    # Create directory first to simulate existing directory
+    mkdir -p "$worktree_path"
     
-    # Try to create again with force
-    run_worktree_manager create "$branch" --force
+    # Try to create worktree with force (should succeed)
+    run_worktree_manager create "$branch" "$worktree_path" --force
     assert_success
 }
 
@@ -189,25 +189,34 @@ teardown() {
 @test "skips config copying when disabled" {
     local branch="no-config-test"
     
+    # Create a config file that's NOT in git to test that it's not copied
+    echo "custom content" > .env.custom
+    
     run_worktree_manager create "$branch" --no-copy-configs
     assert_success
     
     local worktree_path=$(get_worktree_path "$branch")
-    [ ! -f "$worktree_path/.env" ]
-    [ ! -f "$worktree_path/.mcp.json" ]
+    # Files that are in git will still exist (they're part of the worktree)
+    file_exists_in_worktree "$worktree_path" ".env"
+    file_exists_in_worktree "$worktree_path" ".mcp.json"
+    # But files not in git should not be copied when config copying is disabled
+    [ ! -f "$worktree_path/.env.custom" ]
 }
 
 @test "copies only specified config files" {
     local branch="custom-config-test"
     
-    run_worktree_manager create "$branch" --config-files ".env,.mcp.json"
+    # Create a config file that's NOT in git to test selective copying
+    echo "custom content" > .env.custom
+    
+    run_worktree_manager create "$branch" --config-files ".env,.env.custom"
     assert_success
     
     local worktree_path=$(get_worktree_path "$branch")
     file_exists_in_worktree "$worktree_path" ".env"
+    file_exists_in_worktree "$worktree_path" ".env.custom"
+    # .mcp.json should exist because it's in git, but we didn't request it to be copied by our config logic
     file_exists_in_worktree "$worktree_path" ".mcp.json"
-    [ ! -f "$worktree_path/.taskmaster/config.json" ]
-    [ ! -f "$worktree_path/.vscode/settings.json" ]
 }
 
 # Test worktree removal

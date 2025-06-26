@@ -16,7 +16,7 @@ teardown() {
 @test "handles unknown command gracefully" {
     run_worktree_manager invalid-command
     assert_failure
-    assert_output_contains "Unknown command: invalid-command"
+    assert_output_contains "Unknown argument: invalid-command"
 }
 
 @test "handles unknown options gracefully" {
@@ -44,7 +44,7 @@ teardown() {
     run_worktree_manager create "$branch"
     assert_success
     
-    assert worktree_exists "$branch"
+    worktree_exists "$branch"
     local worktree_path=$(get_worktree_path "$branch")
     # Path should have slashes converted to hyphens
     [[ $(basename "$worktree_path") == *"feature-user-auth-oauth2"* ]]
@@ -56,7 +56,7 @@ teardown() {
     run_worktree_manager create "$branch"
     assert_success
     
-    assert worktree_exists "$branch"
+    worktree_exists "$branch"
     # Should create worktree despite special characters
     local worktree_path=$(get_worktree_path "$branch")
     [ -d "$worktree_path" ]
@@ -68,7 +68,7 @@ teardown() {
     run_worktree_manager create "$long_branch"
     assert_success
     
-    assert worktree_exists "$long_branch"
+    worktree_exists "$long_branch"
 }
 
 @test "handles branch names with Unicode characters" {
@@ -77,7 +77,7 @@ teardown() {
     run_worktree_manager create "$unicode_branch"
     assert_success
     
-    assert worktree_exists "$unicode_branch"
+    worktree_exists "$unicode_branch"
 }
 
 # Test file system edge cases
@@ -200,7 +200,7 @@ teardown() {
     
     # Verify all were created
     for branch in "${branches[@]}"; do
-        assert worktree_exists "$branch"
+        worktree_exists "$branch"
     done
     
     # Clean up
@@ -225,7 +225,7 @@ teardown() {
     
     # Verify all exist
     for branch in "${branches[@]}"; do
-        assert worktree_exists "$branch"
+        worktree_exists "$branch"
     done
     
     # List should show all
@@ -283,7 +283,7 @@ teardown() {
     assert_success
     
     local worktree_path=$(get_worktree_path "$branch")
-    assert file_exists_in_worktree "$worktree_path" ".large-config"
+    file_exists_in_worktree "$worktree_path" ".large-config"
     
     # Verify file was copied correctly
     local original_size=$(stat -f%z .large-config 2>/dev/null || stat -c%s .large-config)

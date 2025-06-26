@@ -41,7 +41,10 @@ find_worktree_manager() {
 }
 
 # Find the worktree manager script
-if WORKTREE_MANAGER=$(find_worktree_manager); then
+if [[ -n "$WORKTREE_MANAGER" ]] && [[ -x "$WORKTREE_MANAGER" ]]; then
+    # Use externally provided WORKTREE_MANAGER variable (for testing)
+    true
+elif WORKTREE_MANAGER=$(find_worktree_manager); then
     true  # Found it
 else
     echo "Error: git-worktree-manager.sh not found"

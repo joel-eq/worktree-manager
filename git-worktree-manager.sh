@@ -664,9 +664,14 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
         *)
-            if [[ "$COMMAND" == "config" ]] && [[ -z "$CONFIG_VALUE" ]] && [[ -n "$CONFIG_ACTION" ]]; then
+            # Check for unrecognized options (starting with - or --)
+            if [[ "$1" == -* ]]; then
+                log_error "Unknown argument: $1"
+                usage
+                exit 1
+            elif [[ "$COMMAND" == "config" ]] && [[ -z "$CONFIG_VALUE" ]] && [[ -n "$CONFIG_ACTION" ]]; then
                 CONFIG_VALUE="$1"
-            elif [[ -z "$BRANCH" ]]; then
+            elif [[ -n "$COMMAND" ]] && [[ -z "$BRANCH" ]]; then
                 BRANCH="$1"
             elif [[ -z "$CUSTOM_PATH" ]] && [[ "$COMMAND" == "create" ]]; then
                 CUSTOM_PATH="$1"
