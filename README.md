@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Bash](https://img.shields.io/badge/bash-%3E%3D4.0-green.svg)
 ![Git](https://img.shields.io/badge/git-%3E%3D2.5-orange.svg)
-![Tests](https://img.shields.io/badge/tests-60%2B-brightgreen.svg)
+![Tests](https://img.shields.io/badge/tests-96%20%E2%9C%85-brightgreen.svg)
 
 A comprehensive command-line tool for managing git worktrees with automatic configuration file copying, shell integration, and robust testing.
 
@@ -30,9 +30,10 @@ A comprehensive command-line tool for managing git worktrees with automatic conf
 - Tab completion for branch names
 
 🧪 **Thoroughly Tested**
-- 60+ automated tests covering core functionality and edge cases
-- Bats testing framework with comprehensive test suite
-- CI/CD ready with detailed test reporting
+- 96 automated tests with 100% pass rate ✅
+- Comprehensive test coverage: core functionality, config management, shortcuts, edge cases
+- Bats testing framework with detailed test reporting
+- CI/CD ready with robust validation
 
 ## 🚀 Quick Start
 
@@ -45,9 +46,10 @@ mkdir -p ~/.local/bin && \
 curl -o ~/.local/bin/git-worktree-manager https://raw.githubusercontent.com/joel-eq/worktree-manager/main/git-worktree-manager.sh && \
 curl -o ~/.local/bin/worktree-shortcuts.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/worktree-shortcuts.sh && \
 chmod +x ~/.local/bin/git-worktree-manager && \
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && \
-echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.bashrc && \
-source ~/.bashrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && \
+echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.zshrc && \
+source ~/.zshrc
+# For bash users, replace ~/.zshrc with ~/.bashrc
 ```
 
 **Or step by step:**
@@ -61,13 +63,13 @@ curl -o ~/.local/bin/worktree-shortcuts.sh https://raw.githubusercontent.com/joe
 
 # 3. Make executable and add to PATH
 chmod +x ~/.local/bin/git-worktree-manager
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 
 # 4. Add shortcuts
-echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.bashrc
+echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.zshrc
 
 # 5. Reload shell
-source ~/.bashrc
+source ~/.zshrc
 
 # 6. Test installation
 git-worktree-manager help

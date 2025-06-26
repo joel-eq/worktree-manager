@@ -18,14 +18,14 @@ chmod +x ~/.local/bin/git-worktree-manager
 
 # Add to PATH (if not already there)
 if ! echo "$PATH" | grep -q "$HOME/.local/bin"; then
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 fi
 
 # Add shortcuts to shell
-echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.bashrc
+echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.zshrc
 
 # Reload shell configuration
-source ~/.bashrc
+source ~/.zshrc
 ```
 
 ### Verification
