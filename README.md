@@ -41,7 +41,7 @@ A comprehensive command-line tool for managing git worktrees with automatic conf
 **Option 1: Download and use locally**
 ```bash
 # Download to your project
-curl -L https://github.com/yourusername/git-worktree-manager/archive/main.tar.gz | tar xz
+curl -L https://github.com/joel-eq/worktree-manager/archive/main.tar.gz | tar xz
 cd git-worktree-manager-main
 
 # Use directly
@@ -51,7 +51,7 @@ cd git-worktree-manager-main
 **Option 2: Global installation**
 ```bash
 # Download and install globally
-curl -o git-worktree-manager.sh https://raw.githubusercontent.com/yourusername/git-worktree-manager/main/git-worktree-manager.sh
+curl -o git-worktree-manager.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/git-worktree-manager.sh
 chmod +x git-worktree-manager.sh
 sudo mv git-worktree-manager.sh /usr/local/bin/git-worktree-manager
 
@@ -63,7 +63,7 @@ git-worktree-manager create feature/ui-redesign
 **Option 3: With shell shortcuts**
 ```bash
 # Add to your shell profile
-curl -o worktree-shortcuts.sh https://raw.githubusercontent.com/yourusername/git-worktree-manager/main/worktree-shortcuts.sh
+curl -o worktree-shortcuts.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/worktree-shortcuts.sh
 echo 'source /path/to/worktree-shortcuts.sh' >> ~/.bashrc
 source ~/.bashrc
 
@@ -244,7 +244,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ### Quick Development Setup
 ```bash
-git clone https://github.com/yourusername/git-worktree-manager.git
+git clone https://github.com/joel-eq/worktree-manager/git-worktree-manager.git
 cd git-worktree-manager
 
 # Run tests to verify setup
@@ -255,9 +255,9 @@ cd git-worktree-manager
 ```
 
 ### Reporting Issues
-- 🐛 [Bug Reports](https://github.com/yourusername/git-worktree-manager/issues/new?template=bug_report.md)
-- 💡 [Feature Requests](https://github.com/yourusername/git-worktree-manager/issues/new?template=feature_request.md)
-- 📖 [Documentation Issues](https://github.com/yourusername/git-worktree-manager/issues/new?template=documentation.md)
+- 🐛 [Bug Reports](https://github.com/joel-eq/worktree-manager/issues/new?template=bug_report.md)
+- 💡 [Feature Requests](https://github.com/joel-eq/worktree-manager/issues/new?template=feature_request.md)
+- 📖 [Documentation Issues](https://github.com/joel-eq/worktree-manager/issues/new?template=documentation.md)
 
 ## 📋 Requirements
 
@@ -279,16 +279,3 @@ cd git-worktree-manager
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Git team for the powerful worktree functionality
-- [Bats](https://github.com/bats-core/bats-core) for the excellent testing framework
-- The bash community for shell scripting best practices
-
----
-
-**Made with ❤️ for developers who love efficient git workflows**
-
-[![Star this repo](https://img.shields.io/github/stars/yourusername/git-worktree-manager?style=social)](https://github.com/yourusername/git-worktree-manager)
-[![Follow on GitHub](https://img.shields.io/github/followers/yourusername?style=social)](https://github.com/yourusername)
