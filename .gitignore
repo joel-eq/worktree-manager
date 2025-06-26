@@ -1,0 +1,42 @@
+# Test artifacts
+/tmp/
+*.tmp
+test-*
+worktree-test-*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Shell history and config
+.bash_history
+.zsh_history
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Log files
+*.log
+
+# Coverage reports
+htmlcov/
+coverage/
+.coverage
+
+# Temporary test repositories
+test_repo_*
+temp_*
