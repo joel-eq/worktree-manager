@@ -400,7 +400,6 @@ create_worktree() {
     
     # Copy config files if requested
     if [[ "$copy_configs" == "true" ]]; then
-        log_info "Config copying enabled (copy_configs='$copy_configs')"
         local config_files=()
         
         if [[ -n "$custom_config_files" ]]; then
@@ -417,8 +416,6 @@ create_worktree() {
         if [[ ${#config_files[@]} -gt 0 ]]; then
             copy_config_files "$worktree_path" "${config_files[@]}"
         fi
-    else
-        log_info "Config copying disabled (copy_configs='$copy_configs')"
     fi
     
     log_success "Worktree created at: $worktree_path"

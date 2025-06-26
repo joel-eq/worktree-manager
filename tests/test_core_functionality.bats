@@ -274,11 +274,12 @@ teardown() {
     run_worktree_manager create "$branch"
     assert_success
     
-    # Note: We can't test actual shell switching in bats easily,
-    # but we can verify the switch command finds the right worktree
-    run_worktree_manager switch "$branch" 2>/dev/null || true
-    # The command will fail because it tries to exec a new shell,
-    # but we can check it found the worktree in the output logic
+    # We can't test the actual shell switching because it uses exec,
+    # but we can verify the worktree exists and is found
+    worktree_exists "$branch"
+    
+    local worktree_path=$(get_worktree_path "$branch")
+    [ -d "$worktree_path" ]
 }
 
 # Test cleanup functionality
