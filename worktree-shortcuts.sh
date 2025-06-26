@@ -13,16 +13,22 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Locate the git-worktree-manager.sh script using multiple search strategies
+# Locate the git-worktree-manager script using multiple search strategies
 find_worktree_manager() {
-    # First, try in the same directory as this script
+    # First, try in the same directory as this script (both naming conventions)
     if [[ -x "$SCRIPT_DIR/git-worktree-manager.sh" ]]; then
         echo "$SCRIPT_DIR/git-worktree-manager.sh"
         return 0
+    elif [[ -x "$SCRIPT_DIR/git-worktree-manager" ]]; then
+        echo "$SCRIPT_DIR/git-worktree-manager"
+        return 0
     fi
     
-    # Check if it's in PATH
-    if command -v git-worktree-manager.sh >/dev/null 2>&1; then
+    # Check if it's in PATH (both naming conventions)
+    if command -v git-worktree-manager >/dev/null 2>&1; then
+        echo "git-worktree-manager"
+        return 0
+    elif command -v git-worktree-manager.sh >/dev/null 2>&1; then
         echo "git-worktree-manager.sh"
         return 0
     fi
@@ -32,6 +38,9 @@ find_worktree_manager() {
     while [[ "$current_dir" != "/" ]]; do
         if [[ -x "$current_dir/scripts/git-worktree-manager.sh" ]]; then
             echo "$current_dir/scripts/git-worktree-manager.sh"
+            return 0
+        elif [[ -x "$current_dir/scripts/git-worktree-manager" ]]; then
+            echo "$current_dir/scripts/git-worktree-manager"
             return 0
         fi
         current_dir="$(dirname "$current_dir")"
@@ -47,11 +56,12 @@ if [[ -n "$WORKTREE_MANAGER" ]] && [[ -x "$WORKTREE_MANAGER" ]]; then
 elif WORKTREE_MANAGER=$(find_worktree_manager); then
     true  # Found it
 else
-    echo "Error: git-worktree-manager.sh not found"
+    echo "Error: git-worktree-manager script not found"
     echo "Please ensure the script is:"
-    echo "  1. In the same directory as this shortcuts script"
-    echo "  2. In your PATH"
+    echo "  1. In the same directory as this shortcuts script (as 'git-worktree-manager' or 'git-worktree-manager.sh')"
+    echo "  2. In your PATH (try: which git-worktree-manager)"
     echo "  3. In a scripts/ directory in your project"
+    echo "  4. Or set WORKTREE_MANAGER environment variable to the script path"
     return 1 2>/dev/null || exit 1
 fi
 
