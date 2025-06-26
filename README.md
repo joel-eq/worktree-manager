@@ -42,7 +42,7 @@ A comprehensive command-line tool for managing git worktrees with automatic conf
 ```bash
 # Download to your project
 curl -L https://github.com/joel-eq/worktree-manager/archive/main.tar.gz | tar xz
-cd git-worktree-manager-main
+cd worktree-manager-main
 
 # Use directly
 ./git-worktree-manager.sh create feature/auth-system
