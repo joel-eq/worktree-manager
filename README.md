@@ -36,9 +36,47 @@ A comprehensive command-line tool for managing git worktrees with automatic conf
 
 ## 🚀 Quick Start
 
-### Installation
+### Installation (Recommended: ~/.local/bin)
 
-**Option 1: Download and use locally**
+**One-command setup with both scripts:**
+```bash
+# Create directory and download both scripts
+mkdir -p ~/.local/bin && \
+curl -o ~/.local/bin/git-worktree-manager https://raw.githubusercontent.com/joel-eq/worktree-manager/main/git-worktree-manager.sh && \
+curl -o ~/.local/bin/worktree-shortcuts.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/worktree-shortcuts.sh && \
+chmod +x ~/.local/bin/git-worktree-manager && \
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && \
+echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.bashrc && \
+source ~/.bashrc
+```
+
+**Or step by step:**
+```bash
+# 1. Setup user bin directory
+mkdir -p ~/.local/bin
+
+# 2. Download both scripts
+curl -o ~/.local/bin/git-worktree-manager https://raw.githubusercontent.com/joel-eq/worktree-manager/main/git-worktree-manager.sh
+curl -o ~/.local/bin/worktree-shortcuts.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/worktree-shortcuts.sh
+
+# 3. Make executable and add to PATH
+chmod +x ~/.local/bin/git-worktree-manager
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+
+# 4. Add shortcuts
+echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.bashrc
+
+# 5. Reload shell
+source ~/.bashrc
+
+# 6. Test installation
+git-worktree-manager help
+wthelp
+```
+
+### Alternative Installation Methods
+
+**Local project installation:**
 ```bash
 # Download to your project
 curl -L https://github.com/joel-eq/worktree-manager/archive/main.tar.gz | tar xz
@@ -48,9 +86,9 @@ cd worktree-manager-main
 ./git-worktree-manager.sh create feature/auth-system
 ```
 
-**Option 2: Global installation**
+**System-wide installation:**
 ```bash
-# Download and install globally
+# Download and install globally (requires sudo)
 curl -o git-worktree-manager.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/git-worktree-manager.sh
 chmod +x git-worktree-manager.sh
 sudo mv git-worktree-manager.sh /usr/local/bin/git-worktree-manager
@@ -60,21 +98,9 @@ cd any-git-project
 git-worktree-manager create feature/ui-redesign
 ```
 
-**Option 3: With shell shortcuts**
-```bash
-# Add to your shell profile
-curl -o worktree-shortcuts.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/worktree-shortcuts.sh
-echo 'source /path/to/worktree-shortcuts.sh' >> ~/.bashrc
-source ~/.bashrc
-
-# Use convenient aliases
-wtcreate feature/api-refactor
-wtlist
-wtgo main
-```
-
 ### Basic Usage
 
+**Using the main script:**
 ```bash
 # Create worktree for a new feature
 git-worktree-manager create feature/user-authentication
@@ -87,6 +113,29 @@ git-worktree-manager remove feature/user-authentication
 
 # Show help
 git-worktree-manager help
+```
+
+**Using convenient shortcuts (after installation):**
+```bash
+# Create and switch to worktree
+wtcreate feature/user-auth
+# or wtgo feature/user-auth (creates if doesn't exist)
+
+# List all worktrees
+wtlist
+
+# Switch between worktrees
+wtcd feature/user-auth
+wtcd main
+
+# Fork current branch for hotfix
+wtfork hotfix
+
+# Remove worktree
+wtremove feature/user-auth --force
+
+# Show shortcuts help
+wthelp
 ```
 
 ## 📖 Documentation
@@ -119,19 +168,35 @@ git-worktree-manager config --remove .vscode/settings.json
 git-worktree-manager config --reset
 ```
 
-### Shell Shortcuts
+### Shell Shortcuts Reference
 
+| Shortcut | Full Command | Description |
+|----------|--------------|-------------|
+| `wt` | `git-worktree-manager` | Main command alias |
+| `wtcreate` | `git-worktree-manager create` | Create worktree |
+| `wtlist` | `git-worktree-manager list` | List worktrees |
+| `wtremove` | `git-worktree-manager remove` | Remove worktree |
+| `wtswitch` | `git-worktree-manager switch` | Switch to worktree |
+| `wtstatus` | `git-worktree-manager status` | Show status |
+| `wtprune` | `git-worktree-manager prune` | Prune references |
+
+**Advanced Functions (shortcuts only):**
+| Shortcut | Description | Example |
+|----------|-------------|---------|
+| `wtgo <branch>` | Create if needed, then switch | `wtgo feature/auth` |
+| `wtcd <branch>` | Change directory to worktree | `wtcd main` |
+| `wtfork <suffix>` | Fork current branch | `wtfork v2` |
+| `wtsync` | Pull latest in all worktrees | `wtsync` |
+| `wthelp` | Show shortcuts help | `wthelp` |
+
+**Examples:**
 ```bash
-# Basic aliases
-wt list                    # Same as git-worktree-manager list
-wtcreate feature/auth      # Create worktree
-wtremove feature/auth      # Remove worktree
-
-# Advanced functions
-wtgo feature/auth          # Create if needed, then switch to it
-wtcd main                  # Change directory to main worktree
-wtfork v2                  # Create fork of current branch
-wtsync                     # Pull latest in all worktrees
+# Quick workflow
+wtcreate feature/auth      # Create and setup worktree
+wtgo feature/auth          # Switch to it (creates if needed)
+wtfork hotfix              # Create hotfix fork
+wtcd main                  # Go back to main
+wtsync                     # Sync all worktrees
 ```
 
 ### Default Config Files

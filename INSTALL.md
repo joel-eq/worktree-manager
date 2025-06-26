@@ -2,9 +2,63 @@
 
 Complete git worktree management solution with automatic config file copying, comprehensive testing, and convenient shell shortcuts.
 
-## Quick Install
+## Recommended Installation (~/.local/bin)
 
-### Option 1: Local Project Installation (Recommended)
+### Quick Setup - Both Scripts
+```bash
+# Create user bin directory
+mkdir -p ~/.local/bin
+
+# Download and install both scripts
+curl -o ~/.local/bin/git-worktree-manager https://raw.githubusercontent.com/joel-eq/worktree-manager/main/git-worktree-manager.sh
+curl -o ~/.local/bin/worktree-shortcuts.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/worktree-shortcuts.sh
+
+# Make executable
+chmod +x ~/.local/bin/git-worktree-manager
+
+# Add to PATH (if not already there)
+if ! echo "$PATH" | grep -q "$HOME/.local/bin"; then
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+fi
+
+# Add shortcuts to shell
+echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.bashrc
+
+# Reload shell configuration
+source ~/.bashrc
+```
+
+### Verification
+```bash
+# Test main script
+git-worktree-manager help
+
+# Test shortcuts (in any git repo)
+cd your-git-project
+wtcreate feature/test-branch
+wtlist
+wtremove feature/test-branch --force
+```
+
+### Usage Examples
+```bash
+# Using the main script
+git-worktree-manager create feature/auth-system
+git-worktree-manager list
+git-worktree-manager config --list
+
+# Using convenient shortcuts
+wtcreate feature/ui-redesign    # Create worktree
+wtgo feature/auth-system        # Switch to existing worktree
+wtlist                          # List all worktrees
+wtfork hotfix                   # Fork current branch
+wtsync                          # Sync all worktrees
+wthelp                          # Show shortcuts help
+```
+
+## Alternative Installation Methods
+
+### Option 1: Local Project Installation
 ```bash
 # Clone or copy the worktree-manager directory to your project
 cd your-project
@@ -23,26 +77,15 @@ wtcreate feature/auth
 ```bash
 # Install to system bin directory
 sudo cp worktree-manager/git-worktree-manager.sh /usr/local/bin/git-worktree-manager
+sudo cp worktree-manager/worktree-shortcuts.sh /usr/local/bin/
 sudo chmod +x /usr/local/bin/git-worktree-manager
+
+# Add shortcuts globally
+echo 'source /usr/local/bin/worktree-shortcuts.sh' | sudo tee -a /etc/bash.bashrc
 
 # Use from any git project
 cd any-git-project
 git-worktree-manager create feature/ui
-```
-
-### Option 3: User Local Installation
-```bash
-# Install to user bin directory
-mkdir -p ~/.local/bin
-cp worktree-manager/git-worktree-manager.sh ~/.local/bin/git-worktree-manager
-chmod +x ~/.local/bin/git-worktree-manager
-
-# Add to PATH (if not already)
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-
-# Add shortcuts
-echo 'source /path/to/worktree-manager/worktree-shortcuts.sh' >> ~/.bashrc
 ```
 
 ## Requirements
@@ -73,15 +116,22 @@ wthelp
 
 ## Uninstall
 
+### Remove ~/.local/bin installation
+```bash
+# Remove both scripts
+rm -f ~/.local/bin/git-worktree-manager
+rm -f ~/.local/bin/worktree-shortcuts.sh
+
+# Remove shortcuts from shell config (edit ~/.bashrc and remove these lines):
+# export PATH="$HOME/.local/bin:$PATH"
+# source ~/.local/bin/worktree-shortcuts.sh
+```
+
+### Remove other installations
 ```bash
 # Remove global installation
 sudo rm -f /usr/local/bin/git-worktree-manager
-
-# Remove user installation
-rm -f ~/.local/bin/git-worktree-manager
-
-# Remove shortcuts from shell config
-# Edit ~/.bashrc and remove the source line
+sudo rm -f /usr/local/bin/worktree-shortcuts.sh
 
 # Remove project installation
 rm -rf ./worktree-manager
