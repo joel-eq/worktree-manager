@@ -45,9 +45,9 @@ mkdir -p ~/.local/bin && \
 curl -o ~/.local/bin/git-worktree-manager https://raw.githubusercontent.com/joel-eq/worktree-manager/main/git-worktree-manager.sh && \
 curl -o ~/.local/bin/worktree-shortcuts.sh https://raw.githubusercontent.com/joel-eq/worktree-manager/main/worktree-shortcuts.sh && \
 chmod +x ~/.local/bin/git-worktree-manager && \
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && \
-echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.bashrc && \
-source ~/.bashrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && \
+echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.zshrc && \
+source ~/.zshrc
 ```
 
 **Or step by step:**
@@ -61,13 +61,13 @@ curl -o ~/.local/bin/worktree-shortcuts.sh https://raw.githubusercontent.com/joe
 
 # 3. Make executable and add to PATH
 chmod +x ~/.local/bin/git-worktree-manager
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 
 # 4. Add shortcuts
-echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.bashrc
+echo 'source ~/.local/bin/worktree-shortcuts.sh' >> ~/.zshrc
 
 # 5. Reload shell
-source ~/.bashrc
+source ~/.zshrc
 
 # 6. Test installation
 git-worktree-manager help
